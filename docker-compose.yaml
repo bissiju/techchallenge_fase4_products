@@ -1,0 +1,41 @@
+version: '1.0'
+
+services:
+  products-api:
+    build: .
+    container_name: products-api
+    environment:
+      DB_HOST: db
+    ports:
+      - ${PORT}:3002
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+  db:
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    container_name: techchallenge_fase2_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10
+    ports:
+      - ${DB_EXPOSED_PORT}:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+   db:
+
+networks:
+  app-network:
+    external: true
