@@ -16,7 +16,7 @@ Given("the system is ok", function () {
 });
 
 When("sending a request to the creation api", async function () {
-  response = await fetch(`${url_endpoint}/category`, {
+  response = await fetch(`${url_endpoint}/product/category`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +40,7 @@ Given("there is at least one category created", function () {
 });
 
 When("sending a request to fetch the list", async function () {
-  response = await fetch(`${url_endpoint}/category`);
+  response = await fetch(`${url_endpoint}/product/category`);
 });
 
 Then("it should return the list of categories", async function () {
@@ -51,7 +51,7 @@ Then("it should return the list of categories", async function () {
 
 //////////////////////// Fetch a category
 When("sending a request to fetch the category", async function () {
-  response = await fetch(`${url_endpoint}/category/${categoryId}`);
+  response = await fetch(`${url_endpoint}/product/category/${categoryId}`);
 });
 
 Then("it should return the category", async function () {
@@ -61,7 +61,7 @@ Then("it should return the category", async function () {
 
 //////////////////////// Edit a category
 When("sending a request to modify the category", async function () {
-  response = await fetch(`${url_endpoint}/category/${categoryId}`, {
+  response = await fetch(`${url_endpoint}/product/category/${categoryId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -79,7 +79,7 @@ Then("it should return the modified category", async function () {
 
 //////////////////////// Delete a category
 When("sending a request to delete the category", async function () {
-  response = await fetch(`${url_endpoint}/category/${categoryId}`, {
+  response = await fetch(`${url_endpoint}/product/category/${categoryId}`, {
     method: "DELETE",
   });
 });
@@ -92,7 +92,7 @@ Then("it should successfully delete the category", async function () {
 //////////////////////// Create a product
 Given("there is a created category", async function () {
   assert.equal(categoryId?.length > 0, true);
-  response = await fetch(`${url_endpoint}/category`, {
+  response = await fetch(`${url_endpoint}/product/category`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
